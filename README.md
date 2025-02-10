@@ -1,19 +1,15 @@
-Here’s the updated documentation with the new features and changes incorporated. The documentation now includes details about the `habix clean` command, improved credential handling, and clearer instructions for setting up and running the tool.
-
----
-
 ![Habix Banner](/images/habix_banner.webp)
 
 # Habix
 
-Habix is a command-line tool that fetches pending tasks from Habitica and sends desktop notifications. It helps you stay on top of your daily tasks and to-dos by reminding you of incomplete activities.
+Habix is a command-line tool that fetches **incomplete dailies and todos** from Habitica and sends desktop notifications. It helps you stay on top of your daily tasks and to-dos by reminding you of outstanding activities that need your attention.
 
 ---
 
 ## Features
 
-- **Fetch Pending Tasks**: Retrieves your incomplete tasks from Habitica.
-- **Desktop Notifications**: Sends notifications for unfinished tasks using `notify-send` (Linux) or native notifications (macOS).
+- **Fetch Incomplete Dailies and Todos**: Retrieves only incomplete tasks of type `daily` and `todo` from Habitica.
+- **Desktop Notifications**: Sends notifications for outstanding tasks using `notify-send` (Linux) or native notifications (macOS).
 - **Secure Credential Storage**: Stores your Habitica API credentials securely in a `.env` file in the project directory.
 - **Simple CLI Commands**: Easy-to-use commands for setup, execution, and cleanup.
 - **Cross-Platform Installation**: Supports installation via Cargo and Nix.
@@ -75,17 +71,17 @@ habix setup
 
 This command will prompt you to enter your **Habitica User ID** and **API Token**. These credentials will be securely stored in a `.env` file in the project directory.
 
-### Fetching Tasks
+### Fetching Outstanding Tasks
 
-To fetch pending tasks and receive desktop notifications, run:
+To fetch **incomplete dailies and todos** and receive desktop notifications, run:
 ```sh
 habix run
 ```
 
 This will:
-1. Fetch your incomplete tasks from Habitica.
-2. Send a desktop notification listing your pending tasks.
-3. Notify you if you're all caught up with no pending tasks.
+1. Fetch your incomplete `dailies` and `todos` from Habitica.
+2. Send a desktop notification listing your outstanding tasks.
+3. Notify you if you're all caught up with no incomplete tasks.
 
 If the `.env` file is missing or doesn’t contain valid credentials, the program will print a helpful message prompting you to run `habix setup`.
 
@@ -159,11 +155,7 @@ Habix is licensed under the **GPL-3.0 License**. See the [LICENSE](LICENSE) file
 
 ---
 
-Now you're ready to use Habix to stay on top of your tasks and contribute to its development! 🚀
-
----
-
-### Example Workflow
+## Example Workflow
 
 1. **Set Up Credentials**:
    ```sh
@@ -171,11 +163,11 @@ Now you're ready to use Habix to stay on top of your tasks and contribute to its
    ```
    Enter your Habitica User ID and API Token when prompted.
 
-2. **Fetch Tasks**:
+2. **Fetch Outstanding Tasks**:
    ```sh
    habix run
    ```
-   You’ll receive a desktop notification with your pending tasks.
+   You’ll receive a desktop notification with your incomplete `dailies` and `todos`.
 
 3. **Clean Up**:
    ```sh
@@ -185,7 +177,7 @@ Now you're ready to use Habix to stay on top of your tasks and contribute to its
 
 ---
 
-### Troubleshooting
+## Troubleshooting
 
 - **Missing `.env` File**: If the `.env` file is missing or invalid, `habix run` will prompt you to run `habix setup`.
 - **API Errors**: If you encounter API errors (e.g., `401 Unauthorized`), ensure your credentials are correct and up-to-date.
@@ -193,4 +185,25 @@ Now you're ready to use Habix to stay on top of your tasks and contribute to its
 
 ---
 
-Enjoy using Habix to stay productive and organized! 🚀
+Now you're ready to use Habix to stay productive and organized by focusing on your **outstanding incomplete dailies and todos**! 🚀
+
+---
+
+### Example Output
+
+If you have the following tasks:
+- **Incomplete Todo**: "Complete the Rust project"
+- **Completed Daily**: "Write documentation"
+- **Incomplete Daily**: "Read a book"
+
+The notification will show:
+```
+🔴 You have outstanding tasks 🔴:
+
+Complete the Rust project
+Read a book
+```
+
+---
+
+Enjoy using Habix to stay on top of your tasks! 🚀

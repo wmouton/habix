@@ -9,10 +9,12 @@ struct ApiResponse {
 
 #[derive(Deserialize, Debug)]
 struct Task {
-    text: String,
+    text: String,          // Task description
+    r#type: String,        // Task type: "daily", "todo", "habit", "reward"
+    completed: Option<bool>, // Only present for "todos" and "dailies"
 }
 
-/// Fetch tasks from Habitica API
+/// Fetch incomplete dailies and todos from Habitica API
 pub fn fetch_tasks(user_id: &str, api_token: &str) -> Result<Vec<String>, AppError> {
     let client = Client::new();
     let response = client
@@ -29,16 +31,22 @@ pub fn fetch_tasks(user_id: &str, api_token: &str) -> Result<Vec<String>, AppErr
     }
 
     let api_response: ApiResponse = response.json()?;
-    let task_texts = api_response
+
+    // Filter tasks to include only incomplete dailies and todos
+    let incomplete_tasks: Vec<String> = api_response
         .data
         .into_iter()
+        .filter(|task| {
+            // Include only "todos" and "dailies" that are not completed
+            (task.r#type == "daily" || task.r#type == "todo") && task.completed != Some(true)
+        })
         .map(|task| task.text)
         .collect();
 
-    Ok(task_texts)
+    Ok(incomplete_tasks)
 }
 
-/// Filter pending tasks
+/// Filter pending tasks (no changes needed here)
 pub fn get_pending_tasks(tasks: Vec<String>) -> Vec<String> {
     tasks.into_iter().filter(|task| !task.is_empty()).collect()
 }
