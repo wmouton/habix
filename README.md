@@ -1,4 +1,4 @@
-![Habix Banner](/images/habix_banner.webp)
+![Habix Banner](/images/habix_banner.png)
 
 # Habix
 
