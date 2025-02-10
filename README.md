@@ -1,4 +1,4 @@
-![Habix Banner](/images/habix-banner.webp)
+![Habix Banner](/images/habix_banner.webp)
 
 # Habix
 
@@ -35,7 +35,13 @@ Once built, the executable will be located at:
 target/release/habix
 ```
 
-You can move it to a directory in your PATH for easier access:
+The binary will be placed in the `~/.cargo/bin/`:
+
+```sh
+~/.cargo/bin/habix
+```
+
+You can also move it to a directory in your PATH for easier access (optional):
 
 ```sh
 sudo mv target/release/habix /usr/local/bin/
