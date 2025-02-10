@@ -1,4 +1,4 @@
-![Habix Banner](/images/habix_banner.png)
+![Habix Banner](/assets/habix-banner.png)
 
 # Habix
 
