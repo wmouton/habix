@@ -1,6 +1,5 @@
 use clap::Parser;
-use std::io::{self, Write}; // Add this line
-use std::path::Path; // Add this line
+use std::io::{self, Write};
 mod auth;
 mod tasks;
 mod notifications;
@@ -27,24 +26,16 @@ fn setup() -> Result<(), AppError> {
     let api_token = api_token.trim().to_string();
 
     auth::save_credentials(&user_id, &api_token)?;
-    println!("✅ Setup complete! Credentials saved in .env file.");
+    // println!("✅ Setup complete! Credentials saved!.");
 
     Ok(())
 }
 
 fn run() -> Result<(), AppError> {
-    let env_file = Path::new(".env");
-
-    if !env_file.exists() {
-        println!("❌ Error: .env file not found. Please run 'habix setup' to configure your credentials.");
-        return Ok(());
-    }
-
-    auth::load_env()?;
-    let (user_id, api_token) = match auth::get_credentials() {
+    let (user_id, api_token) = match auth::load_credentials() {
         Ok(creds) => creds,
         Err(_) => {
-            println!("❌ Error: Missing or invalid credentials in .env file. Please run 'habix setup' to configure your credentials.");
+            println!("❌ Error: API keys file not found or invalid. Please run 'habix setup' to configure your credentials.");
             return Ok(());
         }
     };
@@ -53,10 +44,10 @@ fn run() -> Result<(), AppError> {
     let pending = tasks::get_pending_tasks(tasks);
 
     if pending.is_empty() {
-        notifications::notify("Habix Reminder - Habitica Tasks", "✅ You're all caught up! ✅")?;
+        notifications::notify("Habix Reminder - Habitica", "✅ You're all caught up! ✅")?;
     } else {
         let task_list = pending.join("\n");
-        notifications::notify("Habix Reminder - Habitica Tasks", &format!("\n🔴 You have pending tasks 🔴:\n\n{}", task_list))?;
+        notifications::notify("Habix Reminder - Habitica", &format!("\n🔴 You have pending tasks 🔴:\n\n{}", task_list))?;
     }
 
     Ok(())

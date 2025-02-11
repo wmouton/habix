@@ -16,7 +16,4 @@ pub enum AppError {
 
     #[error("HTTP error: {0}")]
     HttpError(#[from] reqwest::Error),
-
-    #[error("Environment variable error: {0}")]
-    EnvError(#[from] dotenvy::Error),
 }
