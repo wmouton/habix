@@ -10,7 +10,7 @@ Habix is a command-line tool that fetches **incomplete dailies and todos** from 
 
 - **Fetch Incomplete Dailies and Todos**: Retrieves only incomplete tasks of type `daily` and `todo` from Habitica.
 - **Desktop Notifications**: Sends notifications for outstanding tasks using `notify-send` (Linux) or native notifications (macOS).
-- **Secure Credential Storage**: Stores your Habitica API credentials securely in a `.env` file in the project directory.
+- **Secure Credential Storage**: Stores your Habitica API credentials securely in `~/Habix-API-Keys/habix-api-keys.txt`.
 - **Simple CLI Commands**: Easy-to-use commands for setup, execution, and cleanup.
 - **Cross-Platform Installation**: Supports installation via Cargo and Nix.
 - **Development Environment**: Includes Nix Flake and `shell.nix` for seamless development setup.
@@ -69,7 +69,7 @@ After installation, set up your Habitica API credentials using the `setup` comma
 habix setup
 ```
 
-This command will prompt you to enter your **Habitica User ID** and **API Token**. These credentials will be securely stored in a `.env` file in the project directory.
+This command will prompt you to enter your **Habitica User ID** and **API Token**. These credentials will be securely stored in `~/Habix-API-Keys/habix-api-keys.txt`. The directory and file will be created automatically if they don’t exist.
 
 ### Fetching Outstanding Tasks
 
@@ -83,17 +83,17 @@ This will:
 2. Send a desktop notification listing your outstanding tasks.
 3. Notify you if you're all caught up with no incomplete tasks.
 
-If the `.env` file is missing or doesn’t contain valid credentials, the program will print a helpful message prompting you to run `habix setup`.
+If the API keys file is missing or doesn’t contain valid credentials, the program will print a helpful message prompting you to run `habix setup`.
 
 ### Cleaning Up Credentials
 
-To delete the `.env` file and remove your stored credentials, run:
+To delete the API keys file and remove your stored credentials, run:
 ```sh
 habix clean
 ```
 
 This command will:
-1. Delete the `.env` file if it exists.
+1. Delete the `~/Habix-API-Keys/habix-api-keys.txt` file if it exists.
 2. Print a confirmation message.
 
 ---
@@ -161,7 +161,7 @@ Habix is licensed under the **GPL-3.0 License**. See the [LICENSE](LICENSE) file
    ```sh
    habix setup
    ```
-   Enter your Habitica User ID and API Token when prompted.
+   Enter your Habitica User ID and API Token when prompted. The credentials will be saved in `~/Habix-API-Keys/habix-api-keys.txt`.
 
 2. **Fetch Outstanding Tasks**:
    ```sh
@@ -173,13 +173,13 @@ Habix is licensed under the **GPL-3.0 License**. See the [LICENSE](LICENSE) file
    ```sh
    habix clean
    ```
-   This will delete the `.env` file and remove your stored credentials.
+   This will delete the `~/Habix-API-Keys/habix-api-keys.txt` file.
 
 ---
 
 ## Troubleshooting
 
-- **Missing `.env` File**: If the `.env` file is missing or invalid, `habix run` will prompt you to run `habix setup`.
+- **Missing API Keys File**: If the API keys file is missing or invalid, `habix run` will prompt you to run `habix setup`.
 - **API Errors**: If you encounter API errors (e.g., `401 Unauthorized`), ensure your credentials are correct and up-to-date.
 - **Desktop Notifications**: Ensure `notify-send` is installed on Linux or that your macOS system supports native notifications.
 
